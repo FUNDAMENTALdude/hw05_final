@@ -1,0 +1,36 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+Профайл пользователя
+{% endblock %}
+
+{% block content %}
+{% load thumbnail %}
+  <div class="container py-5">        
+    <h1>Все посты пользователя {{ name.get_full_name }}</h1>
+    <h3>Всего постов: {{ num }} </h3>   
+    {% for post in page_obj %}
+      <article>
+        <ul>
+          <li>
+            Дата публикации: {{ post.pub_date }}
+          </li>
+        </ul>
+        {% thumbnail post.image "960x339" crop="center" upscale=True as im %}
+          <img class="card-img my-2" src="{{ im.url }}">
+        {% endthumbnail %}
+        <p>
+          {{ post.text }}
+        </p>
+        <a href="{% url 'posts:post_detail' post.pk %}">подробная информация </a>
+      </article>
+      {% if post.group %}       
+        <a href="{% url "posts:group_posts" post.group.slug %}">все записи группы</a>        
+      {% endif %}
+      <hr>
+    {% endfor %}
+    {% include 'posts/includes/paginator.html' %}
+        <!-- Остальные посты. после последнего нет черты -->
+        <!-- Здесь подключён паджинатор -->  
+  </div>
+{% endblock %}
