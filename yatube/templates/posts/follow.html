@@ -1,13 +1,11 @@
 {% extends 'base.html' %} 
   
 {% block title %}
-  Последние обновления на сайте
+  Избранные пользователи
 {% endblock %}   
 
 {% block content %}
 {% load thumbnail %}
-{% load cache %}
-{% cache 20 index_page %}
   <!-- класс py-5 создает отступы сверху и снизу блока -->
   <div class="container py-5">
   {% include 'posts/includes/switcher.html' %}
@@ -35,5 +33,4 @@
     {% endfor %}
   </div>
   {% include 'posts/includes/paginator.html' %}
-{% endcache %}
 {% endblock %}  
