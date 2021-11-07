@@ -53,8 +53,10 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+
     text = models.TextField(verbose_name='Текст комментария',
                             help_text='Введите текст комментария')
+
     post = models.ForeignKey(
         Post,
         related_name='comments',
@@ -68,8 +70,10 @@ class Comment(models.Model):
         related_name='comments',
     )
 
-    created = models.DateTimeField(verbose_name='Дата комментария',
-                                   auto_now_add=True)
+    created = models.DateTimeField(
+        verbose_name='Дата комментария',
+        auto_now_add=True
+    )
 
 
 class Follow(models.Model):

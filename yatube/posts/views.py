@@ -54,7 +54,7 @@ def profile(request, username):
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    comments = post.comments.all
+    comments = post.comments.all()
     form = CommentForm(request.POST or None)
     author_all_posts = post.author.posts.all()
     num_of_posts = author_all_posts.count()
@@ -116,7 +116,7 @@ def add_comment(request, post_id):
 
 @login_required
 def follow_index(request):
-    follow_list = request.user.following.all()
+    follow_list = Follow.objects.filter(user=request.user)
     author_list = []
     for follow in follow_list:
         author_list.append(follow.author)
