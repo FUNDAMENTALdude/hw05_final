@@ -230,12 +230,14 @@ class PostViewsTest(TestCase):
         self.assertEqual(len(response2.context['page_obj']), 1)
 
     # Проверяем количество подписок после подписки и отписки
-    def test_follow_and_unfollow_working(self):
+    def test_follow_working(self):
         self.authorized_client2.get(reverse('posts:'
                                             'profile_follow',
                                             kwargs={'username': 'auth'}))
         follow2 = Follow.objects.filter(user=PostViewsTest.user2)
         self.assertEqual(len(follow2), 2)
+
+    def test_unfollow_worling(self):
         self.authorized_client2.get(reverse('posts:'
                                             'profile_unfollow',
                                             kwargs={'username': 'auth'}))

@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 from ..models import Post, Group
 from django.contrib.auth import get_user_model
 from django.urls import reverse
-import time
+from django.core.cache import cache
 
 User = get_user_model()
 
@@ -31,7 +31,7 @@ class ChacheTests(TestCase):
         response2 = self.authorized_client.get(reverse('posts:index'))
         content2 = response2.content
         self.assertEqual(content1, content2)
-        time.sleep(20)
+        cache.clear()
         response3 = self.authorized_client.get(reverse('posts:index'))
         content3 = response3.content
         self.assertNotEqual(content3, content2)
